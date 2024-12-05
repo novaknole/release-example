@@ -46,3 +46,6 @@ jobs:
       - name: Publish to npm
         if: ${{contains(github.ref_name, 'changeset-release')}}
         run: yarn publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
