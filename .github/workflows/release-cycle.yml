@@ -6,11 +6,11 @@ on:
   workflow_dispatch:
     inputs:
       packageNameToPublish:
-        type: string
+        type: choice
         description: Which package to release
         options: 
-          - ss1
-          - ss2
+          - "@glagh/giorgi-contracts-monorepo"
+          - "@glagh/giorgi-configs-monorepo"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions: {} #reset
