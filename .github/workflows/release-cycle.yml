@@ -43,5 +43,5 @@ jobs:
           PACKAGE_NAME_TO_PUBLISH: ${{ github.event.inputs.packageNameToPublish }}
           IS_PRERELEASE: ${{ github.event.inputs.preRelease }}
       - name: Publish to npm
-        if: ${{contains(github.ref_name, "changeset-release")}}
+        if: ${{contains(github.ref_name, 'changeset-release')}}
         run: echo aooeoeoe
