@@ -11,6 +11,9 @@ on:
         options: 
           - "@glagh/giorgi-contracts-monorepo"
           - "@glagh/giorgi-configs-monorepo"
+      preRelease:
+        type: boolean
+        description: Is PreRelease ?
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions: {} #reset
@@ -44,6 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           PACKAGE_NAME_TO_PUBLISH: ${{ github.event.inputs.packageNameToPublish }}
+          IS_PRERELEASE: ${{ github.event.inputs.preRelease }}
       # - name: Ingore packages(after)
       #   run: yarn ignore
       #   env:

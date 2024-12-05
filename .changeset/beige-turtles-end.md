@@ -2,4 +2,4 @@
 "@glagh/giorgi-configs-monorepo": minor
 ---
 
-for 1.5.0
+going to 1.5 again
