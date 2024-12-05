@@ -10,14 +10,14 @@ echo $PACKAGE_NAME_TO_PUBLISH
 
 arr=("@glagh/giorgi-contracts-monorepo" "@glagh/giorgi-configs-monorepo")
 
+git checkout "$RELEASE_BRANCH"
+
 # Loop through the array
 for item in "${arr[@]}"; do
   if [[ "$item" != "$PACKAGE_NAME_TO_PUBLISH" ]]; then
     changeset version --ignore $item
   fi
 done
-
-git checkout "$RELEASE_BRANCH"
 
 git add .
 git commit -m "Ignored changesets of all packages except $PACKAGE_NAME_TO_PUBLISH"
