@@ -34,5 +34,6 @@ fi
 if [ "$WHEN" == "after" ]; then
     git checkout $RELEASE_BRANCH
     git merge $TEMP_BRANCH
+    git push origin $RELEASE_BRANCH
     git branch -D $TEMP_BRANCH
 fi
