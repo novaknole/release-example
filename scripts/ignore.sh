@@ -17,6 +17,8 @@ for item in "${arr[@]}"; do
   fi
 done
 
+git checkout "$RELEASE_BRANCH"
+
 git add .
 git commit -m "Ignored changesets of all packages except $PACKAGE_NAME_TO_PUBLISH"
 
