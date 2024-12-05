@@ -9,8 +9,8 @@ on:
         type: string
         description: Which package to release
         options: 
-          - "@glagh/giorgi-contracts-monorepo"
-          - "@glagh/giorgi-configs-monorepo"
+          - ss1
+          - ss2
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions: {} #reset
