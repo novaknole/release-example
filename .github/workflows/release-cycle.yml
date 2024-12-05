@@ -32,11 +32,11 @@ jobs:
         run: yarn ignore
         env:
           PACKAGE_NAME_TO_PUBLISH: ${{ github.event.inputs.packageNameToPublish }}
-      # - name: Publish to npm
-      #   id: changesets
-      #   uses: changesets/action@v1
-      #   with:
-      #     publish: yarn release
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: yarn release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
