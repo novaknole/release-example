@@ -45,4 +45,4 @@ jobs:
           IS_PRERELEASE: ${{ github.event.inputs.preRelease }}
       - name: Publish to npm
         if: ${{contains(github.ref_name, 'changeset-release')}}
-        run: echo aooeoeoe
+        run: yarn publish
