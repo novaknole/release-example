@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "ignore": "scripts/release/ignore.sh",
+    "ignore": "scripts/ignore.sh",
     "changeset": "changeset",
     "release": "changeset publish"
   },
