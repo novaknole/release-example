@@ -1,8 +1,17 @@
 name: Release
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+    inputs:
+      packageNameToPublish:
+        type: string
+        description: Which package to release
+        options: 
+          - "@glagh/giorgi-contracts-monorepo"
+          - "@glagh/giorgi-configs-monorepo"
+
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions: {} #reset
 jobs:
@@ -19,11 +28,15 @@ jobs:
         with:
           node-version: 20
       - run: yarn install
-      - name: Publish to npm
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: yarn release
+      - name: Ingore packages
+        run: bash scripts/ignore.sh
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PACKAGE_NAME_TO_PUBLISH: ${{ github.inputs.packageNameToPublish }}
+      # - name: Publish to npm
+      #   id: changesets
+      #   uses: changesets/action@v1
+      #   with:
+      #     publish: yarn release
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
