@@ -28,6 +28,7 @@ jobs:
         with:
           node-version: 20
       - run: yarn install
+      - run: bash scripts/git-user-config.sh
       - name: Ingore packages
         run: yarn ignore
         env:
