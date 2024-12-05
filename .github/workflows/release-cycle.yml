@@ -32,24 +32,15 @@ jobs:
           node-version: 20
       - run: yarn install
       - run: bash scripts/git-user-config.sh
-      # - name: Ingore packages(before)
-      #   run: yarn ignore
-      #   env:
-      #     WHEN: before
-      #     PACKAGE_NAME_TO_PUBLISH: ${{ github.event.inputs.packageNameToPublish }}
-      - name: Publish to npm
+      - name: Create/Update PR
         id: changesets
         uses: changesets/action@v1
         with:
           version: yarn ignore
-          publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           PACKAGE_NAME_TO_PUBLISH: ${{ github.event.inputs.packageNameToPublish }}
           IS_PRERELEASE: ${{ github.event.inputs.preRelease }}
-      # - name: Ingore packages(after)
-      #   run: yarn ignore
-      #   env:
-      #     WHEN: after
-      #     PACKAGE_NAME_TO_PUBLISH: ${{ github.event.inputs.packageNameToPublish }}
+      - name: Publish to npm
+        run: echo ${{ github.ref_name }}
