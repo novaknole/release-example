@@ -34,7 +34,7 @@ jobs:
       - run: bash scripts/git-user-config.sh
       - name: Create/Update PR
         id: changesets
-        if: ${{github.ref_name}} == 'main'
+        if: ${{ github.ref_name == 'main' }}
         uses: changesets/action@v1
         with:
           version: yarn ignore
