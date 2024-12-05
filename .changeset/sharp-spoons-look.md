@@ -1,5 +1,5 @@
 ---
-"@glagh/giorgi-configs-monorepo": major
+"@glagh/giorgi-configs-monorepo": minor
 ---
 
 going to 1.5
