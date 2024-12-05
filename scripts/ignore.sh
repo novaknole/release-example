@@ -2,38 +2,42 @@
 
 set -euo pipefail
 
-TEMP_BRANCH=changeset-temp-release/main
-RELEASE_BRANCH=changeset-release/main
+echo "awesome99"
 
-if [ "$WHEN" == "before" ]; then
-    echo "awesome123"
+echo $PACKAGE_NAME_TO_PUBLISH
 
-    echo $PACKAGE_NAME_TO_PUBLISH
+# TEMP_BRANCH=changeset-temp-release/main
+# RELEASE_BRANCH=changeset-release/main
 
-    arr=("@glagh/giorgi-contracts-monorepo" "@glagh/giorgi-configs-monorepo")
+# if [ "$WHEN" == "before" ]; then
+#     echo "awesome123"
 
-    git checkout -b "$TEMP_BRANCH"
+#     echo $PACKAGE_NAME_TO_PUBLISH
 
-    # Loop through the array
-    for item in "${arr[@]}"; do
-    if [[ "$item" != "$PACKAGE_NAME_TO_PUBLISH" ]]; then
-        changeset version --ignore $item
-    fi
-    done
+#     arr=("@glagh/giorgi-contracts-monorepo" "@glagh/giorgi-configs-monorepo")
 
-    git add .
-    git commit -m "Ignored changesets of all packages except $PACKAGE_NAME_TO_PUBLISH"
+#     git checkout -b "$TEMP_BRANCH"
 
-    # Push branch
-    if ! git push origin "$TEMP_BRANCH"; then
-        echo "Can't push $TEMP_BRANCH."
-        exit 1
-    fi
-fi
+#     # Loop through the array
+#     for item in "${arr[@]}"; do
+#     if [[ "$item" != "$PACKAGE_NAME_TO_PUBLISH" ]]; then
+#         changeset version --ignore $item
+#     fi
+#     done
 
-if [ "$WHEN" == "after" ]; then
-    git checkout $RELEASE_BRANCH
-    git merge $TEMP_BRANCH
-    git push origin $RELEASE_BRANCH
-    git branch -D $TEMP_BRANCH
-fi
+#     git add .
+#     git commit -m "Ignored changesets of all packages except $PACKAGE_NAME_TO_PUBLISH"
+
+#     # Push branch
+#     if ! git push origin "$TEMP_BRANCH"; then
+#         echo "Can't push $TEMP_BRANCH."
+#         exit 1
+#     fi
+# fi
+
+# if [ "$WHEN" == "after" ]; then
+#     git checkout $RELEASE_BRANCH
+#     git merge $TEMP_BRANCH
+#     git push origin $RELEASE_BRANCH
+#     git branch -D $TEMP_BRANCH
+# fi
