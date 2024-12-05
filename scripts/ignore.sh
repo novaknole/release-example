@@ -9,7 +9,7 @@ arr=("@glagh/giorgi-contracts-monorepo" "@glagh/giorgi-configs-monorepo")
 if [ "$IS_PRERELEASE" == "true" ]; then
     changeset pre enter next
 else
-    changeset pre exit next
+    changeset pre exit next || true
 fi
 
 # Loop through the array
