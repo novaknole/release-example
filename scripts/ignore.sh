@@ -10,7 +10,7 @@ echo $PACKAGE_NAME_TO_PUBLISH
 
 arr=("@glagh/giorgi-contracts-monorepo" "@glagh/giorgi-configs-monorepo")
 
-git checkout "$RELEASE_BRANCH"
+git checkout -b "$RELEASE_BRANCH"
 
 # Loop through the array
 for item in "${arr[@]}"; do
