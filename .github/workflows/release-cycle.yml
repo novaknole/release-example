@@ -29,7 +29,7 @@ jobs:
           node-version: 20
       - run: yarn install
       - name: Ingore packages
-        run: bash scripts/ignore.sh
+        run: yarn ignore
         env:
           PACKAGE_NAME_TO_PUBLISH: ${{ github.event.inputs.packageNameToPublish }}
       # - name: Publish to npm
