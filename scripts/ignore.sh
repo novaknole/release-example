@@ -2,10 +2,10 @@
 
 set -euo pipefail
 
-if [ "$WHEN" == "before" ]; then
-    TEMP_BRANCH=changeset-temp-release/main
-    RELEASE_BRANCH=changeset-release/main
+TEMP_BRANCH=changeset-temp-release/main
+RELEASE_BRANCH=changeset-release/main
 
+if [ "$WHEN" == "before" ]; then
     echo "awesome123"
 
     echo $PACKAGE_NAME_TO_PUBLISH
