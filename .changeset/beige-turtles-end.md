@@ -2,4 +2,4 @@
 "@glagh/giorgi-configs-monorepo": minor
 ---
 
-going to 1.5 again
+going to 1.6 blaxblux
