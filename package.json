@@ -7,7 +7,7 @@
   "scripts": {
     "ignore": "scripts/ignore.sh",
     "changeset": "changeset",
-    "release": "scripts/publish.sh"
+    "release": "changeset publish"
   },
   "workspaces": [
     "contracts",
