@@ -1,46 +1,54 @@
 const {publish, getChangelogEntry} = require("@changesets/release-utils");
 
-module.exports = async ({ github, context }) => {
-    const dd = await publish({script: 'yarn release'})
-    console.log(dd, ' length here')
+module.exports = async ({ github, context, core }) => {
+    // const {published, publishedPackages} = await publish({script: 'yarn release'})
+
+    // if(!published) {
+    //     console.log("No packages were published, hence no tag/release will be created");
+    //     return;
+    // }
+
+    // console.log(publishedPackages.length, ' length here')
     // for(let i = 0; i < publishedPackages.length; i++) {
     //     const name = publishedPackages[i].name;
     //     const version = publishedPackages[i].version;
     //     const tagName = `${name}@${version}`
 
-    //     const workspacesInfo = JSON.parse(
-    //         JSON.parse(execSync('yarn --silent --json workspaces info').toString()).data
-    //     )
+        const workspacesInfo = JSON.parse(
+            JSON.parse(execSync('yarn --silent --json workspaces info').toString()).data
+        )
 
-    //     const packageInfo = workspacesInfo[name];
-    //     if(packageInfo === undefined) {
-    //         throw new Error("package name that was published is not found in workspace info, abort...");
-    //     }
+        // path.join(packageInfo.location, "package.json");
 
-    //     let changelogFileName = path.join(packageInfo.location, "CHANGELOG.md");
+        const packageInfo = workspacesInfo['@glagh/giorgi-contracts-monorepo'];
+        // if(packageInfo === undefined) {
+        //     throw new Error("package name that was published is not found in workspace info, abort...");
+        // }
 
-    //     console.log(changelogFileName);
+        let changelogFileName = path.join(packageInfo.location, "package.json");
 
-    //     let changelog = await fs.readFile(changelogFileName, "utf8");
+        console.log(changelogFileName);
 
-    //     const changelogEntry =  getChangelogEntry(changelog, version)
+        let changelog = await fs.readFile(changelogFileName, "utf8");
+        console.log(changelog)
+        // const changelogEntry =  getChangelogEntry(changelog, version)
         
-    //     if (!changelogEntry) {
-    //         // we can find a changelog but not the entry for this version
-    //         // if this is true, something has probably gone wrong
-    //         throw new Error(
-    //           `Could not find changelog entry for ${name}@${version}`
-    //         );
-    //     }
+        // if (!changelogEntry) {
+        //     // we can find a changelog but not the entry for this version
+        //     // if this is true, something has probably gone wrong
+        //     throw new Error(
+        //       `Could not find changelog entry for ${name}@${version}`
+        //     );
+        // }
 
-    //     await github.rest.repos.createRelease({
-    //         owner: context.repo.owner,
-    //         repo: context.repo.repo,
-    //         name: tagName,
-    //         tag_name: tagName,
-    //         target_commitish: github.ref_name,
-    //         body: changelogEntry.content,
-    //         prerelease: process.env.PRERELEASE === 'true',
-    //     });
+        // await github.rest.repos.createRelease({
+        //     owner: context.repo.owner,
+        //     repo: context.repo.repo,
+        //     name: tagName,
+        //     tag_name: tagName,
+        //     target_commitish: github.ref_name,
+        //     body: changelogEntry.content,
+        //     prerelease: process.env.PRERELEASE === 'true',
+        // });
     // }
 }
