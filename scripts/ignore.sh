@@ -7,7 +7,7 @@ echo $PACKAGE_NAME_TO_PUBLISH
 arr=("@glagh/giorgi-contracts-monorepo" "@glagh/giorgi-configs-monorepo")
 
 if [ "$IS_PRERELEASE" == "true" ]; then
-    changeset pre enter alpha
+    changeset pre enter alpha || true
 else
     changeset pre exit alpha || true
 fi
