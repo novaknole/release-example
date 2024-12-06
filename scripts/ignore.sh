@@ -7,9 +7,9 @@ echo $PACKAGE_NAME_TO_PUBLISH
 arr=("@glagh/giorgi-contracts-monorepo" "@glagh/giorgi-configs-monorepo")
 
 if [ "$IS_PRERELEASE" == "true" ]; then
-    changeset pre enter next
+    changeset pre enter alpha
 else
-    changeset pre exit next || true
+    changeset pre exit alpha || true
 fi
 
 # Loop through the array

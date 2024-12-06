@@ -12,7 +12,6 @@ module.exports = async ({ github, context, core }) => {
         return;
     }
 
-    console.log(publishedPackages.length, ' length here')
     for(let i = 0; i < publishedPackages.length; i++) {
         const name = publishedPackages[i].name;
         const version = publishedPackages[i].version;
@@ -30,7 +29,7 @@ module.exports = async ({ github, context, core }) => {
         let changelogFileName = path.join(packageInfo.location, "CHANGELOG.md");
 
         let changelog = await fs.readFile(changelogFileName, "utf8");
-        console.log(changelog);
+
         const changelogEntry =  getChangelogEntry(changelog, version)
         
         if (!changelogEntry) {
@@ -48,7 +47,7 @@ module.exports = async ({ github, context, core }) => {
             tag_name: tagName,
             target_commitish: github.ref_name,
             body: changelogEntry.content,
-            prerelease: process.env.PRERELEASE === 'true',
+            prerelease: version.includes("-"),
         });
     }
 }

@@ -40,9 +40,6 @@ jobs:
           version: yarn ignore
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          PACKAGE_NAME_TO_PUBLISH: ${{ github.event.inputs.packageNameToPublish }}
-          IS_PRERELEASE: ${{ github.event.inputs.preRelease }}
       - name: Create temporary .npmrc
         if: ${{contains(github.ref_name, 'changeset-release')}}
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
@@ -50,7 +47,6 @@ jobs:
         uses: actions/github-script@v7
         if: ${{contains(github.ref_name, 'changeset-release')}}
         env:
-          PRERELEASE: ${{ github.event.inputs.preRelease }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
