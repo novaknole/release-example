@@ -1,0 +1,39 @@
+{
+  "changesets": [
+    {
+      "releases": [
+        {
+          "name": "@glagh/giorgi-configs-monorepo",
+          "type": "minor"
+        }
+      ],
+      "summary": "one more time",
+      "id": "silly-suits-dance"
+    }
+  ],
+  "releases": [
+    {
+      "name": "@glagh/giorgi-configs-monorepo",
+      "type": "minor",
+      "oldVersion": "1.9.0-alpha.0",
+      "changesets": [
+        "silly-suits-dance"
+      ],
+      "newVersion": "1.9.0-alpha.1"
+    }
+  ],
+  "preState": {
+    "mode": "pre",
+    "tag": "alpha",
+    "initialVersions": {
+      "@glagh/giorgi-configs-monorepo": "1.8.0",
+      "@glagh/giorgi-contracts-monorepo": "1.4.0"
+    },
+    "changesets": [
+      "beige-turtles-end",
+      "sharp-spoons-look",
+      "short-eyes-pretend",
+      "silly-suits-dance"
+    ]
+  }
+}

@@ -12,9 +12,13 @@ else
     changeset pre exit alpha || true
 fi
 
+echo "coming here1"
+
 # Loop through the array
 for item in "${arr[@]}"; do
 if [[ "$item" != "$PACKAGE_NAME_TO_PUBLISH" ]]; then
+    echo "coming here2"
     changeset version --ignore $item
+    echo "coming here3"
 fi
 done
