@@ -1,5 +1,4 @@
 const {publish, getChangelogEntry} = require("@changesets/release-utils");
-import { getPackages, Package } from "@manypkg/get-packages";
 
 module.exports = async ({ github, context }) => {
     const {published, publishedPackages} = await publish({script: 'yarn release'})
