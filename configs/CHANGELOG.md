@@ -1,5 +1,11 @@
 # @glagh/giorgi-configs-monorepo
 
+## 1.9.0-alpha.1
+
+### Minor Changes
+
+- 834e291: one more time
+
 ## 1.9.0-alpha.0
 
 ### Minor Changes
