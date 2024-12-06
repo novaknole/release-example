@@ -41,6 +41,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PACKAGE_NAME_TO_PUBLISH: ${{ github.event.inputs.packageNameToPublish }}
+          IS_PRERELEASE: ${{ github.event.inputs.preRelease }}
       - name: Create temporary .npmrc
         if: ${{contains(github.ref_name, 'changeset-release')}}
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
