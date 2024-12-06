@@ -1,0 +1,13 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "@glagh/giorgi-configs-monorepo": "1.7.0",
+    "@glagh/giorgi-contracts-monorepo": "1.4.0"
+  },
+  "changesets": [
+    "beige-turtles-end",
+    "sharp-spoons-look",
+    "short-eyes-pretend"
+  ]
+}
