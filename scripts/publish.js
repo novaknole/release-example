@@ -1,4 +1,6 @@
 const { execSync } = require("child_process");
+const fs = require("fs-extra")
+const path = require('path')
 
 const {publish, getChangelogEntry} = require("@changesets/release-utils");
 
