@@ -2,4 +2,4 @@
 "@glagh/giorgi-configs-monorepo": minor
 ---
 
-going to 1.7-A
+going to 1.8-A
