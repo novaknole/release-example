@@ -1,3 +1,5 @@
+const { execSync } = require("child_process");
+
 const {publish, getChangelogEntry} = require("@changesets/release-utils");
 
 module.exports = async ({ github, context, core }) => {
