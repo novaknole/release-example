@@ -5,5 +5,8 @@
     "@glagh/giorgi-configs-monorepo": "1.10.0",
     "@glagh/giorgi-contracts-monorepo": "1.6.0"
   },
-  "changesets": []
+  "changesets": [
+    "lucky-knives-sleep",
+    "warm-coats-double"
+  ]
 }
