@@ -33,6 +33,7 @@ jobs:
       - run: yarn install
       - run: bash scripts/git-user-config.sh
       - name: Create Release Candidate Branch
+        id: start
         run: bash scripts/start.sh
         env:
           PACKAGE: ${{ github.event.inputs.package }}
