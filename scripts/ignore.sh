@@ -11,8 +11,10 @@ package="${REF_NAME##*-}"
 # if something was pushed to release-.., we still don't exit pre-mode.
 
 echo $EVENT_NAME
+echo $TRIGGERING_ACTOR
 echo $REF_NAME
 echo $package
+
 
 ## If the below is true, it means, we're doing the final version release(without rc)
 ## So we exit and re-run the changeset version.
