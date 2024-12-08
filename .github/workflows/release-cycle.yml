@@ -15,13 +15,8 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions: {} #reset
 jobs:
-  release:
-    # IMPORTANT: prevent this action from running on forks
-    permissions:
-      contents: write # to create release (changesets/action)
-      pull-requests: write # to create pull request (changesets/action)
-    name: Release
-    runs-on: ubuntu-latest
+
+  install:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -29,21 +24,36 @@ jobs:
           node-version: 20
       - run: yarn install
       - run: bash scripts/git-user-config.sh
-      - name: Create Release Candidate Branch
-        if: ${{ github.ref_name == 'main' }}
-        run: bash scripts/start.sh
-        env:
-          PACKAGE: ${{ github.event.inputs.package }}
-      - name: Create/Update PR
-        id: changesets
-        if: ${{contains(github.ref_name, 'release-')}}
-        uses: changesets/action@v1
-        with:
-          version: yarn ignore
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REF_NAME: ${{ github.ref_name }}
-          EVENT_NAME: ${{ github.event_name }}
+      
+  start:
+    name: Start Release Candidate
+    ## Run this job only if Manually triggered by the user on UI of main branch.
+    if: ${{ github.ref_name == 'main' && github.event_name == 'workflow_dispatch' }}
+  - name: Create Release Candidate Branch
+    run: bash scripts/start.sh
+    env:
+      PACKAGE: ${{ github.event.inputs.package }}
+  - name: Re-run workflow
+    with:
+      script: |
+        github.rest.actions.createWorkflowDispatch({
+          owner: github.repository_owner,
+          repo: github.repository,
+          workflow_id: 'release-cycle.yml',
+          ref: steps.start.outputs.branch,
+        });
+  
+  changesets:
+    name: Create/Update PR
+    id: changesets
+    if: ${{contains(github.ref_name, 'release-')}}
+    uses: changesets/action@v1
+    with:
+      version: yarn ignore
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REF_NAME: ${{ github.ref_name }}
+      EVENT_NAME: ${{ github.event_name }}
       # - name: Create temporary .npmrc
       #   if: ${{contains(github.ref_name, 'changeset-release')}}
       #   run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
