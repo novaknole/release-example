@@ -18,7 +18,7 @@ echo $package
 
 ## If the below is true, it means, we're doing the final version release(without rc)
 ## So we exit and re-run the changeset version.
-if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+if [[ "$EVENT_NAME" == "workflow_dispatch" && $TRIGGERING_ACTOR != "github-actions[bot]"]]; then
     npx changeset pre exit alpha
 fi
 
