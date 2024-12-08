@@ -34,6 +34,11 @@ jobs:
     if: ${{ github.ref_name == 'main' && github.event_name == 'workflow_dispatch' }}
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: yarn install
+      - run: bash scripts/git-user-config.sh
       - name: Create Release Candidate Branch
         run: bash scripts/start.sh
         env:
