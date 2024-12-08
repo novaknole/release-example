@@ -76,6 +76,7 @@ jobs:
           TRIGGERING_ACTOR: ${{ github.triggering_actor }}
     
     promote:
+      runs-on: ubuntu-latest
       name: Promote to final release
       permissions:
         contents: write
