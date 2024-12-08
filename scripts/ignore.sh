@@ -12,7 +12,7 @@ echo $REF_NAME
 
 echo $EVENT_NAME
 
-echo "Looping through keys and values:"
+echo "Loopsing through keys and values:"
 
 # for pair in $mapping; do
 # key="${pair%%:*}"
