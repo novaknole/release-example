@@ -19,10 +19,11 @@ echo $package
 echo "Looping through keys and values:"
 
 for pair in $mapping; do
-key="${pair%%:*}"
-value="${pair#*:}"
+    key="${pair%%:*}"
+    value="${pair#*:}"
 
     if [[ "$key" != "$package" ]]; then
+        echo "coming here111"
         changeset version --ignore $value
     fi
 done
