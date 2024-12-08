@@ -7,23 +7,19 @@ mapping="contracts:@glagh/giorgi-contracts-monorepo configs:@glagh/giorgi-config
 
 echo $PACKAGE
 
-# arr=("@glagh/giorgi-contracts-monorepo" "@glagh/giorgi-configs-monorepo")
+# if we did workflow dispatch manually on release-v, that means we want to release main version, so we exit the pre mode.
+# if something was pushed to release-.., we still don't exit pre-mode.
 
-# if [ "$IS_PRERELEASE" == "true" ]; then
-#     changeset pre enter alpha || true
-# else
-#     changeset pre exit alpha || true
-# fi
-
+echo $EVENT_NAME
 
 echo "Looping through keys and values:"
 
-for pair in $mapping; do
-key="${pair%%:*}"
-value="${pair#*:}"
+# for pair in $mapping; do
+# key="${pair%%:*}"
+# value="${pair#*:}"
 
-    if [[ "$key" != "$package" ]]; then
-        changeset version --ignore $value
-    fi
-done
+#     if [[ "$key" != "$package" ]]; then
+#         changeset version --ignore $value
+#     fi
+# done
 

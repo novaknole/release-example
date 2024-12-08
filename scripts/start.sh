@@ -9,7 +9,7 @@ git checkout -b "$RELEASE_BRANCH"
 echo "branch=$RELEASE_BRANCH" >> $GITHUB_OUTPUT
 
 # Enter in prerelease state
-npx changeset pre enter rc
+npx changeset pre enter alpha
 git add .
 git commit -m "Start release candidate"
 
