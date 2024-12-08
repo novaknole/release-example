@@ -75,34 +75,34 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           TRIGGERING_ACTOR: ${{ github.triggering_actor }}
     
-    promote:
-      runs-on: ubuntu-latest
-      name: Promote to final release
-      permissions:
-        contents: write
-        actions: write
-      if: ${{ contains(github.ref_name, 'release-') && github.event_name == 'workflow_dispatch' &&  github.triggering_actor != 'github-actions[bot]' }}
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - uses: actions/setup-node@v3
-          with:
-            node-version: 20
-        - run: yarn install
-        - run: bash scripts/git-user-config.sh
-        - name: Exit prerelease state
-          run: bash scripts/exit-prerelease.sh
-        - name: Re-run workflow
-          uses: actions/github-script@v7
-          with:
-            script: |
-              const [owner, repo] = '${{ github.repository }}'.split('/');
-              github.rest.actions.createWorkflowDispatch({
-                owner: owner,
-                repo: repo,
-                workflow_id: 'release-cycle.yml',
-                ref: '${{ steps.start.outputs.branch }}',
-              });
+  promote:
+    runs-on: ubuntu-latest
+    name: Promote to final release
+    permissions:
+      contents: write
+      actions: write
+    if: ${{ contains(github.ref_name, 'release-') && github.event_name == 'workflow_dispatch' &&  github.triggering_actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: yarn install
+      - run: bash scripts/git-user-config.sh
+      - name: Exit prerelease state
+        run: bash scripts/exit-prerelease.sh
+      - name: Re-run workflow
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const [owner, repo] = '${{ github.repository }}'.split('/');
+            github.rest.actions.createWorkflowDispatch({
+              owner: owner,
+              repo: repo,
+              workflow_id: 'release-cycle.yml',
+              ref: '${{ steps.start.outputs.branch }}',
+            });
 
     # publish:
     #   - name: Create temporary .npmrc
