@@ -1,16 +1,16 @@
 name: Release
 on:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - release-*
   workflow_dispatch:
     inputs:
-      packageNameToPublish:
+      package:
         type: choice
         description: Which package to release
         options: 
-          - "@glagh/giorgi-contracts-monorepo"
-          - "@glagh/giorgi-configs-monorepo"
+          - "contracts"
+          - "configs"
       preRelease:
         type: boolean
         description: Is PreRelease ?
@@ -32,15 +32,20 @@ jobs:
           node-version: 20
       - run: yarn install
       - run: bash scripts/git-user-config.sh
+      - name: Create Release Candidate Branch
+        if: ${{ github.ref_name == 'main' }}
+        run: bash scripts/start.sh
+        env:
+          PACKAGE: ${{ github.event.inputs.package }}
       - name: Create/Update PR
         id: changesets
-        if: ${{ github.ref_name == 'main' }}
+        if: ${{contains(github.ref_name, 'release-')}}
         uses: changesets/action@v1
         with:
           version: yarn ignore
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PACKAGE_NAME_TO_PUBLISH: ${{ github.event.inputs.packageNameToPublish }}
+          REF_NAME: ${{ github.ref_name }}
           IS_PRERELEASE: ${{ github.event.inputs.preRelease }}
       - name: Create temporary .npmrc
         if: ${{contains(github.ref_name, 'changeset-release')}}

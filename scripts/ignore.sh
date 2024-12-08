@@ -2,23 +2,28 @@
 
 set -euo pipefail
 
-echo $PACKAGE_NAME_TO_PUBLISH
+# Define the mapping as an associative array
+mapping="contracts:@glagh/giorgi-contracts-monorepo configs:@glagh/giorgi-configs-monorepo"
 
-arr=("@glagh/giorgi-contracts-monorepo" "@glagh/giorgi-configs-monorepo")
+echo $PACKAGE
 
-if [ "$IS_PRERELEASE" == "true" ]; then
-    changeset pre enter alpha || true
-else
-    changeset pre exit alpha || true
-fi
+# arr=("@glagh/giorgi-contracts-monorepo" "@glagh/giorgi-configs-monorepo")
 
-echo "coming here1"
+# if [ "$IS_PRERELEASE" == "true" ]; then
+#     changeset pre enter alpha || true
+# else
+#     changeset pre exit alpha || true
+# fi
 
-# Loop through the array
-for item in "${arr[@]}"; do
-if [[ "$item" != "$PACKAGE_NAME_TO_PUBLISH" ]]; then
-    echo "coming here2"
-    changeset version --ignore $item
-    echo "coming here3"
-fi
+
+echo "Looping through keys and values:"
+
+for pair in $mapping; do
+key="${pair%%:*}"
+value="${pair#*:}"
+
+    if [[ "$key" != "$package" ]]; then
+        changeset version --ignore $value
+    fi
 done
+
