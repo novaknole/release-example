@@ -15,7 +15,6 @@ echo $TRIGGERING_ACTOR
 echo $REF_NAME
 echo $package
 
-
 echo "Looping through keys and values:"
 
 for pair in $mapping; do

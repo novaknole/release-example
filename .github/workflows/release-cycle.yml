@@ -100,7 +100,7 @@ jobs:
               owner: owner,
               repo: repo,
               workflow_id: 'release-cycle.yml',
-              ref: '${{ steps.start.outputs.branch }}',
+              ref: 'release-configs'
             });
 
     # publish:
