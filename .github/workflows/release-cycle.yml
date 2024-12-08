@@ -48,16 +48,18 @@ jobs:
   
   changesets:
     runs-on: ubuntu-latest
-    name: Create/Update PR
+    name: Update PR to release
     id: changesets
     if: ${{contains(github.ref_name, 'release-')}}
-    uses: changesets/action@v1
-    with:
-      version: yarn ignore
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      REF_NAME: ${{ github.ref_name }}
-      EVENT_NAME: ${{ github.event_name }}
+    steps:
+      - name: Create/Update PR
+        uses: changesets/action@v1
+        with:
+          version: yarn ignore
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REF_NAME: ${{ github.ref_name }}
+          EVENT_NAME: ${{ github.event_name }}
       # - name: Create temporary .npmrc
       #   if: ${{contains(github.ref_name, 'changeset-release')}}
       #   run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
