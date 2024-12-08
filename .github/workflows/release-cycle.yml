@@ -16,20 +16,10 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions: {} #reset
 
 jobs:
-  install:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - run: yarn install
-      - run: bash scripts/git-user-config.sh
-      
+  
   start:
     runs-on: ubuntu-latest
     name: Start Release Candidate
-    needs: install
     ## Run this job only if Manually triggered by the user on UI of main branch.
     if: ${{ github.ref_name == 'main' && github.event_name == 'workflow_dispatch' }}
     steps:
@@ -57,9 +47,14 @@ jobs:
   changesets:
     runs-on: ubuntu-latest
     name: Update PR to release
-    needs: install
     if: ${{contains(github.ref_name, 'release-')}}
     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: yarn install
+      - run: bash scripts/git-user-config.sh
       - name: Create/Update PR
         id: changesets
         uses: changesets/action@v1
