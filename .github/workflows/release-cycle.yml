@@ -50,10 +50,10 @@ jobs:
   changesets:
     runs-on: ubuntu-latest
     name: Update PR to release
-    id: changesets
     if: ${{contains(github.ref_name, 'release-')}}
     steps:
       - name: Create/Update PR
+        id: changesets
         uses: changesets/action@v1
         with:
           version: yarn ignore
