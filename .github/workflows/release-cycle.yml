@@ -37,6 +37,7 @@ jobs:
         env:
           PACKAGE: ${{ github.event.inputs.package }}
       - name: Re-run workflow
+        uses: actions/github-script@v7
         with:
           script: |
             github.rest.actions.createWorkflowDispatch({
