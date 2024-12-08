@@ -22,7 +22,7 @@ fi
 
 echo "Looping through keys and values:"
 
-# for pair in $mapping; do
+for pair in $mapping; do
 key="${pair%%:*}"
 value="${pair#*:}"
 
