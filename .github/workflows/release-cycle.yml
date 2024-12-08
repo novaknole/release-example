@@ -29,6 +29,7 @@ jobs:
   start:
     runs-on: ubuntu-latest
     name: Start Release Candidate
+    needs: install
     ## Run this job only if Manually triggered by the user on UI of main branch.
     if: ${{ github.ref_name == 'main' && github.event_name == 'workflow_dispatch' }}
     steps:
@@ -50,6 +51,7 @@ jobs:
   changesets:
     runs-on: ubuntu-latest
     name: Update PR to release
+    needs: install
     if: ${{contains(github.ref_name, 'release-')}}
     steps:
       - name: Create/Update PR
