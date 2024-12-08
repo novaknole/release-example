@@ -52,6 +52,7 @@ jobs:
   changesets:
     runs-on: ubuntu-latest
     name: Update PR to release
+    ## This will also run when we decide to do promote which we do by manually dispatching workflow from UI on release-v branch
     if: ${{contains(github.ref_name, 'release-')}}
     permissions:
       contents: write
@@ -63,6 +64,11 @@ jobs:
           node-version: 20
       - run: yarn install
       - run: bash scripts/git-user-config.sh
+      - name: Exit pre-release
+        ## If user manually triggered the workflow from `release-*` branch, this means he/she is ready to 
+        ## publish the non-prerelease(main) version, so we exit the pre-release.
+        if:  ${{ github.event_name == 'workflow_dispatch' &&  github.triggering_actor == 'github-actions[bot]' }}
+        run: bash scripts/exit-prerelease.sh
       - name: Create/Update PR
         id: changesets
         uses: changesets/action@v1
