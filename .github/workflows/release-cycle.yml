@@ -55,7 +55,7 @@ jobs:
     if: ${{contains(github.ref_name, 'release-')}}
     permissions:
       contents: write
-      actions: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
