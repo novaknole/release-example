@@ -3,7 +3,15 @@ on:
   push:
     branches:
       - release-*
-      
+  workflow_dispatch:
+    inputs:
+      package:
+        type: choice
+        description: Which package to release
+        options: 
+          - "contracts"
+          - "configs"
+
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions: {} #reset
 
