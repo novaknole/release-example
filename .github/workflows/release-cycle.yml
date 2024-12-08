@@ -15,7 +15,6 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions: {} #reset
 jobs:
-
   install:
     steps:
       - uses: actions/checkout@v3
