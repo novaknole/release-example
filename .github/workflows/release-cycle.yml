@@ -82,7 +82,6 @@ jobs:
       contents: write
       actions: write
     if: ${{ contains(github.ref_name, 'release-') && github.event_name == 'workflow_dispatch' &&  github.triggering_actor != 'github-actions[bot]' }}
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
