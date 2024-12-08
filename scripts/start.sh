@@ -8,7 +8,7 @@ git checkout -b "$RELEASE_BRANCH"
 # Output branch
 echo "branch=$RELEASE_BRANCH" >> $GITHUB_OUTPUT
 
-echo "ss"
+echo "ss1"
 
 # Enter in prerelease state
 npx changeset pre enter alpha
