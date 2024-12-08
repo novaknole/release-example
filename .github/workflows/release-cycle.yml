@@ -25,13 +25,3 @@ jobs:
           node-version: 20
       - run: yarn install
       - run: bash scripts/git-user-config.sh
-  
-  start:
-    runs-on: ubuntu-latest
-    name: Start Release Candidate
-    ## Run this job only if Manually triggered by the user on UI of main branch.
-    if: ${{ github.ref_name == 'main' && github.event_name == 'workflow_dispatch' }}
-  - name: Create Release Candidate Branch
-    run: bash scripts/start.sh
-    env:
-      PACKAGE: ${{ github.event.inputs.package }}
