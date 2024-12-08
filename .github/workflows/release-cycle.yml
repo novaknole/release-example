@@ -67,7 +67,7 @@ jobs:
       - name: Exit pre-release
         ## If user manually triggered the workflow from `release-*` branch, this means he/she is ready to 
         ## publish the non-prerelease(main) version, so we exit the pre-release.
-        if:  ${{ github.event_name == 'workflow_dispatch' &&  github.triggering_actor == 'github-actions[bot]' }}
+        if:  ${{ github.event_name == 'workflow_dispatch' &&  github.triggering_actor != 'github-actions[bot]' }}
         run: bash scripts/exit-prerelease.sh
       - name: Create/Update PR
         id: changesets
