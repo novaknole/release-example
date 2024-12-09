@@ -15,7 +15,6 @@ module.exports = async ({ github, context, core }) => {
     core.info(`State ${botRun}`);
     core.info(`State ${process.env.PULL_REQUEST_MERGED}`)
 
-    
     // Jobs to trigger
     setOutput('start', () => {
         return refName == 'main' && eventName == 'workflow_dispatch'
@@ -28,6 +27,8 @@ module.exports = async ({ github, context, core }) => {
     setOutput('promote', () => {
         return refName.startsWith('release-') && eventName == 'workflow_dispatch' && !botRun
     })
+
+    console.log("coming 123")
 
 };
 
