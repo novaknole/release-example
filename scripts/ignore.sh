@@ -7,9 +7,6 @@ mapping="contracts:@glagh/giorgi-contracts-monorepo configs:@glagh/giorgi-config
 
 package="${REF_NAME##*-}"
 
-# if we did workflow dispatch manually on release-v, that means we want to release main version, so we exit the pre mode.
-# if something was pushed to release-.., we still don't exit pre-mode.
-
 echo $REF_NAME
 echo $package
 

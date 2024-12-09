@@ -1,4 +1,4 @@
-const { readPreState } = require('@changesets/pre');
+const { readPreState } = require("@changesets/pre");
 
 module.exports = async ({ github, context, core }) => {
   function setOutput(key, value) {
@@ -23,7 +23,9 @@ module.exports = async ({ github, context, core }) => {
   const isChangesetPRMerged =
     prRequest.source == `changeset-release/${prRequest.target}`;
 
-    
+  const preState = await readPreState(process.cwd());
+  const isPreRelease = preState?.mode === "pre";
+
   core.info(`State ${refName}`);
   core.info(`State ${eventName}`);
   core.info(`State ${botRun}`);
@@ -61,13 +63,29 @@ module.exports = async ({ github, context, core }) => {
     return prRequest.isPR && prRequest.merged && isChangesetPRMerged;
   }
 
+  async function shouldRunMerge() {
+    const head = `${context.repo.owner}:${prRequest.target}`
+    
+    // Async vars
+    const { data: prs } = await github.rest.pulls.list({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        head: head,
+        base: 'main',
+        state: 'open',
+    });
+
+    core.setOutput("should Merge: head: ", head)
+
+    return shouldRunPublish() && !isPreRelease && prs.length === 0
+  }
+
   // Jobs to trigger
   setOutput("start", shouldRunStart());
   setOutput("changesets", shouldRunChangesets());
   setOutput("promote", shouldRunPromote());
   setOutput("publish", shouldRunPublish());
+  setOutput("merge", shouldRunMerge());
 
-  const preState = await readPreState(process.cwd());
-  setOutput("prerelease", preState?.mode === 'pre')
-  
+  setOutput("prerelease", isPreRelease);
 };
