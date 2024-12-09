@@ -10,14 +10,16 @@ module.exports = async ({ github, context, core }) => {
   const prRequest = {
     isPR: eventName == "pull_request",
     merged: process.env.PULL_REQUEST_MERGED == "true",
-    sourceBranchName: process.env.HEAD_REF,
-    targetBranchName: process.env.BASE_REF,
+    source: process.env.HEAD_REF, // source branch's name
+    target: process.env.BASE_REF, // target branch's name
   };
 
   const refName = process.env.GITHUB_REF_NAME;
   const botRun = process.env.TRIGGERING_ACTOR === "github-actions[bot]";
   const isWorkflowDispatch = eventName == "workflow_dispatch";
   const isReleaseBranch = refName.startsWith("release-");
+  const isChangesetPRMerged =
+    prRequest.source == `changeset-release/${prRequest.target}`;
 
   core.info(`State ${refName}`);
   core.info(`State ${eventName}`);
@@ -33,15 +35,15 @@ module.exports = async ({ github, context, core }) => {
 
   // Changeset(which updates the PR) should only run in 2 cases:
   // 1. we manually triggered the workflow on `release-*` branch
-  // 2. The PR was merged to it.
+  // 2. The PR(that is NOT changeset's own PR) was merged to it.
+  //    If changeset's PR was merged, we run publish.
   function shouldRunChangesets() {
     return (
       (isReleaseBranch && isWorkflowDispatch && botRun) ||
-      (prRequest.isPR && prRequest.merged)
+      (prRequest.isPR && prRequest.merged && !isChangesetPRMerged)
     );
   }
 
-  
   // By default, our starting process of release makes release candidate(not the final version).
   // Manually triggering the workflow from `release-*` branch will cause the below to be true
   // which exits the pre-release, runs the changeset job again.
@@ -53,12 +55,7 @@ module.exports = async ({ github, context, core }) => {
   // If some other branch is merged into `release-*`, that means we should update the PR, but
   // not publish yet.
   function shouldRunPublish() {
-    return (
-      prRequest.isPR &&
-      prRequest.merged &&
-      prRequest.sourceBranchName ==
-        `changeset-release/${prRequest.targetBranchName}`
-    );
+    return prRequest.isPR && prRequest.merged && isChangesetPRMerged;
   }
 
   // Jobs to trigger

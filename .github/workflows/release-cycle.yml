@@ -46,7 +46,8 @@ jobs:
       # Job Flags
       start: ${{ steps.state.outputs.start }}
       changesets: ${{ steps.state.outputs.changesets }}
-      promote: ${{ steps.state.outputs.promote }}    
+      promote: ${{ steps.state.outputs.promote }}
+      publish: ${{ steps.state.outputs.publish }}
 
   start:
     runs-on: ubuntu-latest
