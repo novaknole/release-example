@@ -48,6 +48,12 @@ jobs:
       merge: ${{ steps.state.outputs.merge }}
       is_prerelease: ${{ steps.state.outputs.prerelease }}
 
+  ## TODO: 1. might need to add `test` that only runs when `start = true`. `start` should become `dependndent` on `test task`.
+  ## test grabs the package name and goes into that folder and runs yarn build and test.
+  ## We might need to do the same when things are merged into `release-*` branch.
+  ## TODO: 2. workflow_dispatch.inputs is only used for the first time, but when deciding to run dispatch from other branches(other than main),
+  ## inputs are still shown on UI (whatever user chooses though, I don't use it), i get the package from branch name. It might be confusing though
+  ## to still appear `inputs` even if running dispatch from branch other than main, but couldn't find a way to hide it.
   start:
     runs-on: ubuntu-latest
     needs: state
