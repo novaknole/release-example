@@ -141,6 +141,8 @@ jobs:
     name: Publish to npm and create a release/tag
     needs: state
     if: needs.state.outputs.publish == 'true'
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
