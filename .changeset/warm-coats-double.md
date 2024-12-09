@@ -2,4 +2,4 @@
 "@glagh/giorgi-contracts-monorepo": minor
 ---
 
-contracts change kk12
+Again 123
