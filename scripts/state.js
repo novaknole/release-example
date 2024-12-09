@@ -13,10 +13,8 @@ module.exports = async ({ github, context, core }) => {
     core.info(`State ${refName}`);
     core.info(`State ${eventName}`);
     core.info(`State ${botRun}`);
-    core.info(`State ${Object.keys(process.env)}`)
-    
-    core.info(`State ${Object.keys(github)}`);
-    core.info(`State ${Object.keys(context)}`);
+    core.info(`State ${process.env.PULL_REQUEST_MERGED}`)
+
     
     // Jobs to trigger
     setOutput('start', () => {
@@ -24,7 +22,7 @@ module.exports = async ({ github, context, core }) => {
     })
 
     setOutput('changesets', () => {
-        return (refName.startsWith('release-') && eventName == 'workflow_dispatch' && botRun) || github.event.pull_request.merged
+        return (refName.startsWith('release-') && eventName == 'workflow_dispatch' && botRun) || process.env.PULL_REQUEST_MERGED == 'true'
     })
 
     setOutput('promote', () => {

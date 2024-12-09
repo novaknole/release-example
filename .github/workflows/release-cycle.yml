@@ -36,6 +36,8 @@ jobs:
         uses: actions/github-script@v7
         env:
           TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          PULL_REQUEST_MERGED: ${{ github.event.pull_request.merged }}
+          HEAD_REF: ${{ github.head_ref }}
         with:
           result-encoding: string
           script: await require('./scripts/state.js')({ github, context, core })
