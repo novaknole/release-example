@@ -65,7 +65,7 @@ module.exports = async ({ github, context, core }) => {
 
   async function shouldRunMerge() {
     const head = `${context.repo.owner}:${prRequest.target}`
-    
+
     // Async vars
     const { data: prs } = await github.rest.pulls.list({
         owner: context.repo.owner,
@@ -85,7 +85,7 @@ module.exports = async ({ github, context, core }) => {
   setOutput("changesets", shouldRunChangesets());
   setOutput("promote", shouldRunPromote());
   setOutput("publish", shouldRunPublish());
-  setOutput("merge", shouldRunMerge());
+  setOutput("merge", await shouldRunMerge());
 
   setOutput("prerelease", isPreRelease);
 };
