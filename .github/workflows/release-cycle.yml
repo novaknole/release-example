@@ -97,7 +97,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          version: yarn ignore
+          version: yarn version
           # When a PR is merged, changesets/action uses `ref_name` which is `<pr_number>/merge` 
           # and not the source branch name. Such a PR causes new changeset's PR creation instead of 
           # updating the current one. For push or workflow dispatch events, `base_ref` is undefined 
