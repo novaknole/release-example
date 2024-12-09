@@ -182,7 +182,7 @@ jobs:
             await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              head: '${{ github.head_ref }}',
+              head: '${{ github.base_ref }}',
               base: 'main',
-              title: '${{ format('Merge {0} branch', github.head_ref) }}'
+              title: '${{ format('Merge {0} branch', github.base_ref) }}'
             });
