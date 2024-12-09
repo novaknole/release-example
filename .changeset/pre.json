@@ -1,12 +1,9 @@
 {
-  "mode": "exit",
+  "mode": "pre",
   "tag": "alpha",
   "initialVersions": {
     "@glagh/giorgi-configs-monorepo": "1.10.0",
     "@glagh/giorgi-contracts-monorepo": "1.6.0"
   },
-  "changesets": [
-    "lucky-knives-sleep",
-    "warm-coats-double"
-  ]
+  "changesets": []
 }

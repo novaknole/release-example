@@ -48,6 +48,7 @@ jobs:
       changesets: ${{ steps.state.outputs.changesets }}
       promote: ${{ steps.state.outputs.promote }}
       publish: ${{ steps.state.outputs.publish }}
+      is_prerelease: ${{ steps.state.outputs.prerelease }}
 
   start:
     runs-on: ubuntu-latest
@@ -123,6 +124,7 @@ jobs:
       - run: yarn install
       - run: bash scripts/git-user-config.sh
       - name: Exit prerelease state
+        if: needs.state.outputs.is_prerelease == 'true'
         run: bash scripts/exit-prerelease.sh
       - name: Re-run workflow
         uses: actions/github-script@v7
