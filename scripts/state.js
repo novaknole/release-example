@@ -21,6 +21,7 @@ module.exports = async ({ github, context, core }) => {
   const isChangesetPRMerged =
     prRequest.source == `changeset-release/${prRequest.target}`;
 
+    
   core.info(`State ${refName}`);
   core.info(`State ${eventName}`);
   core.info(`State ${botRun}`);
