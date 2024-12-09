@@ -41,6 +41,7 @@ module.exports = async ({ github, context, core }) => {
     );
   }
 
+  
   // By default, our starting process of release makes release candidate(not the final version).
   // Manually triggering the workflow from `release-*` branch will cause the below to be true
   // which exits the pre-release, runs the changeset job again.
