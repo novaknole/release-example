@@ -69,6 +69,10 @@ jobs:
         ## publish the non-prerelease(main) version, so we exit the pre-release.
         if:  ${{ github.event_name == 'workflow_dispatch' &&  github.triggering_actor == 'github-actions[bot]' }}
         run: bash scripts/release/workflow/exit-prerelease.sh
+      - name: Fetch latest changes
+        run: |
+          git fetch origin
+          git reset --hard origin/${{ github.ref_name }}
       - name: Create/Update PR
         id: changesets
         uses: changesets/action@v1
