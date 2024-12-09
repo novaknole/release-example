@@ -3,13 +3,14 @@ name: Setup
 runs:
   using: composite
   steps:
-    - name: 'Check out the repo'
-      uses: 'actions/checkout@v3'
-    - name: 'Install Node.js'
-      uses: 'actions/setup-node@v3'
+    - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+    - uses: actions/cache@v4
+      id: cache
       with:
-        cache: 'yarn'
-        node-version: 20
-    - name: 'Install the dependencies'
+        path: '**/node_modules'
+        key: npm-v3-${{ hashFiles('**/yarnlock.json') }}
+    - run: yarn install --frozen-lockfile
       shell: bash
-      run: 'yarn install --frozen-lockfile'
+      if: steps.cache.outputs.cache-hit != 'true'

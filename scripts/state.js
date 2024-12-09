@@ -69,5 +69,5 @@ module.exports = async ({ github, context, core }) => {
 
   const preState = await readPreState(process.cwd());
   setOutput("prerelease", preState?.mode === 'pre')
-
+  
 };

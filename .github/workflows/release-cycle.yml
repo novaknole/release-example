@@ -26,10 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - run: yarn install
+      - name: Set up environment
+        uses: ./.github/actions/setup
       - run: bash scripts/git-user-config.sh
       - id: state
         name: Get state
@@ -61,10 +59,8 @@ jobs:
       actions: write
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - run: yarn install
+      - name: Set up environment
+        uses: ./.github/actions/setup
       - run: bash scripts/git-user-config.sh
       - name: Create Release Candidate Branch
         id: start
@@ -93,16 +89,18 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - run: yarn install
+      - name: Set up environment
+        uses: ./.github/actions/setup
       - run: bash scripts/git-user-config.sh
       - name: Create/Update PR
         id: changesets
         uses: changesets/action@v1
         with:
           version: yarn ignore
+          # When a PR is merged, changesets/action uses `ref_name` which is `<pr_number>/merge` 
+          # and not the source branch name. Such a PR causes new changeset's PR creation instead of 
+          # updating the current one. For push or workflow dispatch events, `base_ref` is undefined 
+          # and `ref_name` is the correct branch name changeset needs.
           branch: ${{ github.base_ref || github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -118,10 +116,8 @@ jobs:
     if: needs.state.outputs.promote == 'true'
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - run: yarn install
+      - name: Set up environment
+        uses: ./.github/actions/setup
       - run: bash scripts/git-user-config.sh
       - name: Exit prerelease state
         if: needs.state.outputs.is_prerelease == 'true'
@@ -135,7 +131,7 @@ jobs:
               owner: owner,
               repo: repo,
               workflow_id: 'release-cycle.yml',
-              ref: 'release-configs'
+              ref: ${{ github.ref_name}}
             });
   
   publish:
@@ -147,10 +143,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - run: yarn install
+      - name: Set up environment
+        uses: ./.github/actions/setup
       - run: bash scripts/git-user-config.sh
       - run: echo ${{ github.ref_name }}
       - name: Create temporary .npmrc
