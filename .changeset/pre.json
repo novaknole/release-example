@@ -5,5 +5,8 @@
     "@glagh/giorgi-configs-monorepo": "1.11.0-alpha.0",
     "@glagh/giorgi-contracts-monorepo": "1.6.0"
   },
-  "changesets": []
+  "changesets": [
+    "kind-countries-wave",
+    "warm-coats-double"
+  ]
 }

@@ -1,5 +1,11 @@
 # @glagh/giorgi-configs-monorepo
 
+## 1.11.0-alpha.1
+
+### Patch Changes
+
+- 245435f: patchho
+
 ## 1.11.0-alpha.0
 
 ### Minor Changes
