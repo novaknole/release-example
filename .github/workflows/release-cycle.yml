@@ -52,23 +52,29 @@ jobs:
   changesets:
     runs-on: ubuntu-latest
     name: Update PR to release
-    ## This will also run when we decide to do promote which we do by manually dispatching workflow from UI on release-v branch
-    if: ${{contains(github.ref_name, 'release-')}}
+    ## Run this: 
+    ##  1. when we do `promote` - triggering_actor becomes bot in this case as we re-run the workflow.
+    ##  2. If the push happens to `release-` branch, it should re-update the changeset PR.    
+    if: |
+      (
+        ${{contains(github.ref_name, 'release-') && 
+        github.event_name == 'workflow_dispatch' &&  
+        github.triggering_actor == 'github-actions[bot]' }}
+      ) ||
+      (
+        ${{contains(github.ref_name, 'release-') && 
+        github.event_name == 'push'
+      )
     permissions:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 20
       - run: yarn install
       - run: bash scripts/git-user-config.sh
-      - name: Exit pre-release
-        ## If user manually triggered the workflow from `release-*` branch, this means he/she is ready to 
-        ## publish the non-prerelease(main) version, so we exit the pre-release.
-        if:  ${{ github.event_name == 'workflow_dispatch' &&  github.triggering_actor != 'github-actions[bot]' }}
-        run: bash scripts/exit-prerelease.sh
       - name: Create/Update PR
         id: changesets
         uses: changesets/action@v1
@@ -80,6 +86,33 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           TRIGGERING_ACTOR: ${{ github.triggering_actor }}
     
+  promote:
+    runs-on: ubuntu-latest
+    name: Promote to final release
+    permissions:
+      contents: write
+      actions: write
+    if: ${{ contains(github.ref_name, 'release-') && github.event_name == 'workflow_dispatch' &&  github.triggering_actor != 'github-actions[bot]' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: yarn install
+      - run: bash scripts/git-user-config.sh
+      - name: Exit prerelease state
+        run: bash scripts/exit-prerelease.sh
+      - name: Re-run workflow
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const [owner, repo] = '${{ github.repository }}'.split('/');
+            github.rest.actions.createWorkflowDispatch({
+              owner: owner,
+              repo: repo,
+              workflow_id: 'release-cycle.yml',
+              ref: 'release-configs'
+            });
     # publish:
     #   - name: Create temporary .npmrc
     #     if: ${{contains(github.ref_name, 'changeset-release')}}
