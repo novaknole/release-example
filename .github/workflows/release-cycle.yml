@@ -121,16 +121,14 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     name: Publish to npm and create a release/tag
-    if: | 
+    if: |
       (
-        github.event_name == 'pull_request' && 
+        github.event_name == 'pull_request' &&
         github.head_ref == 'changeset_release/${{ github.base_ref }}' &&
         github.event.pull_request.merged == 'true'
       )
     steps:
       - uses: actions/checkout@v3
-      - name: Debug GitHub event name
-        run: echo "${{ github.event_name }}"
       - uses: actions/setup-node@v3
         with:
           node-version: 20
