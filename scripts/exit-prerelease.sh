@@ -16,4 +16,6 @@ echo "awesome"
 
 git merge $REF_NAME
 
+git checkout $REF_NAME
+
 echo "good"
