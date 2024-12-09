@@ -1,3 +1,5 @@
+const { readPreState } = require('@changesets/pre');
+
 module.exports = async ({ github, context, core }) => {
   function setOutput(key, value) {
     core.info(`State ${key} = ${value}`);
@@ -65,5 +67,7 @@ module.exports = async ({ github, context, core }) => {
   setOutput("promote", shouldRunPromote());
   setOutput("publish", shouldRunPublish());
 
-  console.log("coming 123");
+  const preState = await readPreState(process.cwd());
+  setOutput("prerelease", preState?.mode === 'pre')
+
 };
