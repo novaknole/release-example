@@ -56,15 +56,11 @@ jobs:
     ##  1. when we do `promote`, triggering_actor becomes bot in this case as we re-run the workflow.
     ##  2. If the push happens to `release-` branch, it should re-update the changeset PR.    
     if: |
-      (
+       (
         contains(github.ref_name, 'release-') && 
         github.event_name == 'workflow_dispatch' &&  
         github.triggering_actor == 'github-actions[bot]'
-      ) ||
-      (
-        contains(github.ref_name, 'release-') && 
-        (github.event_name == 'push' || github.event_name == 'pull_request')
-      )
+      ) || github.event_name == 'pull_request'
     permissions:
       contents: write
       pull-requests: write
