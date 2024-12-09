@@ -158,7 +158,7 @@ jobs:
           script: await require('./scripts/publish.js')({ github, context })
   
   merge:
-    needs: state
+    needs: [state, publish]
     name: Create PR back to master
     permissions:
       contents: write
@@ -172,9 +172,6 @@ jobs:
       - name: Set up environment
         uses: ./.github/actions/setup
       - run: bash scripts/git-user-config.sh
-      - run: echo '${{ github.head_ref }}'
-      - run: echo '${{ github.ref_name }}'
-      - run: echo '${{ github.base_ref }}'
       - name: Create PR back to master
         uses: actions/github-script@v7
         with:
