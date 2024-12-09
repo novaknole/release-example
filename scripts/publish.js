@@ -25,7 +25,7 @@ module.exports = async ({ github, context, core }) => {
         if(packageInfo === undefined) {
             throw new Error("package name that was published is not found in workspace info, abort...");
         }
-
+        
         let changelogFileName = path.join(packageInfo.location, "CHANGELOG.md");
 
         let changelog = await fs.readFile(changelogFileName, "utf8");
