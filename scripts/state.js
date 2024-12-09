@@ -13,8 +13,8 @@ module.exports = async ({ github, context, core }) => {
     core.info(`State ${refName}`);
     core.info(`State ${eventName}`);
     core.info(`State ${botRun}`);
-    core.info(`State ${github}`);
-    core.info(`State ${context}`);
+    core.info(`State ${Object.keys(github)}`);
+    core.info(`State ${Object.keys(context)}`);
     
     // Jobs to trigger
     setOutput('start', () => {
