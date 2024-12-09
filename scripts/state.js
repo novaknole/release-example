@@ -22,7 +22,7 @@ module.exports = async ({ github, context, core }) => {
   }
 
   function shouldRunPromote() {
-    isReleaseBranch && isWorkflowDispatch && !botRun;
+    return isReleaseBranch && isWorkflowDispatch && !botRun;
   }
 
   core.info(`State ${refName}`);
