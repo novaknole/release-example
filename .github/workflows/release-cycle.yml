@@ -105,6 +105,7 @@ jobs:
           branch: ${{ github.base_ref || github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REF_NAME: ${{ github.base_ref || github.ref_name }}
 
   promote:
     runs-on: ubuntu-latest
