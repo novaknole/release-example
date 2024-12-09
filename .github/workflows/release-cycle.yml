@@ -81,6 +81,7 @@ jobs:
   changesets:
     runs-on: ubuntu-latest
     name: Update PR to release
+    needs: state
     if: needs.state.outputs.changesets == 'true'
     permissions:
       contents: write
@@ -105,6 +106,7 @@ jobs:
   promote:
     runs-on: ubuntu-latest
     name: Promote to final release
+    needs: state
     permissions:
       contents: write
       actions: write
