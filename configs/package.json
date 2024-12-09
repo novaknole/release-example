@@ -7,7 +7,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "version": "scripts/release/version.sh"
+    "version": "scripts/release/version.sh",
+    "build": "node kk.js"
   },
   "files": [
     "index.js"

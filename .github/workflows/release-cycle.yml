@@ -105,7 +105,7 @@ jobs:
           branch: ${{ github.base_ref || github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REF_NAME: ${{ github.ref_name }}
+          REF_NAME: ${{ github.base_ref || github.ref_name }}
 
   promote:
     runs-on: ubuntu-latest
@@ -147,6 +147,9 @@ jobs:
       - name: Set up environment
         uses: ./.github/actions/setup
       - run: bash scripts/git-user-config.sh
+      - name: Build the package
+        working-directory: ${{ github.ref_name.split('-')[-1] }}
+        run: yarn build
       - name: Create temporary .npmrc
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
       - name: Publish to npm

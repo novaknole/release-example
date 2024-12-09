@@ -17,7 +17,6 @@ for pair in $mapping; do
     value="${pair#*:}"
 
     if [[ "$key" != "$package" ]]; then
-        echo "coming here111"
         changeset version --ignore $value
     fi
 done
