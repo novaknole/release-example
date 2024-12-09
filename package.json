@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "ignore": "scripts/ignore.sh",
-    "release": "node scripts/publish.js",
+    "release": "changeset publish",
     "changeset": "changeset"
   },
   "workspaces": [
