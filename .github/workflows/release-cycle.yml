@@ -121,12 +121,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     name: Publish to npm and create a release/tag
-    if: |
-      (
-        github.event_name == 'pull_request' &&
-        github.head_ref == 'changeset_release/${{ github.base_ref }}' &&
-        github.event.pull_request.merged == 'true'
-      )
+    if: ${{ github.event_name == 'pull_request' && github.head_ref == 'changeset_release/${{ github.base_ref }}' && github.event.pull_request.merged == true }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
