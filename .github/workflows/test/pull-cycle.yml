@@ -1,9 +1,10 @@
 name: testing
 on:
   push:
+    branches:
+      - main
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
-permissions: {} #reset
 
 jobs:
   test1: 

@@ -15,7 +15,6 @@ on:
           - "configs"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
-permissions: {} #reset
 
 jobs:
   
