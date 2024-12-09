@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "ignore": "scripts/ignore.sh",
-    "changeset": "changeset",
-    "release": "changeset publish"
+    "release": "node scripts/publish.js",
+    "changeset": "changeset"
   },
   "workspaces": [
     "contracts",

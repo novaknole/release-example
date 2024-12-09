@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Update PR to release
     ## Run this: 
-    ##  1. when we do `promote` - triggering_actor becomes bot in this case as we re-run the workflow.
+    ##  1. when we do `promote`, triggering_actor becomes bot in this case as we re-run the workflow.
     ##  2. If the push happens to `release-` branch, it should re-update the changeset PR.    
     if: |
       (
@@ -80,6 +80,7 @@ jobs:
         uses: changesets/action@v1
         with:
           version: yarn ignore
+          publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REF_NAME: ${{ github.ref_name }}
@@ -92,7 +93,13 @@ jobs:
     permissions:
       contents: write
       actions: write
-    if: ${{ contains(github.ref_name, 'release-') && github.event_name == 'workflow_dispatch' &&  github.triggering_actor != 'github-actions[bot]' }}
+    # Run this if we manually triggered a workflow on `release-` branch.
+    if: | 
+      (
+        contains(github.ref_name, 'release-') && 
+        github.event_name == 'workflow_dispatch' &&  
+        github.triggering_actor != 'github-actions[bot]'
+      )
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
