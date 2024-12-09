@@ -63,7 +63,7 @@ jobs:
       ) ||
       (
         contains(github.ref_name, 'release-') && 
-        github.event_name == 'push'
+        (github.event_name == 'push' || github.event_name == 'pull_request')
       )
     permissions:
       contents: write
