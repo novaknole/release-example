@@ -172,6 +172,9 @@ jobs:
       - name: Set up environment
         uses: ./.github/actions/setup
       - run: bash scripts/git-user-config.sh
+      - run: echo '${{ github.head_ref }}'
+      - run: echo '${{ github.ref_name }}'
+      - run: echo '${{ github.base_ref }}'
       - name: Create PR back to master
         uses: actions/github-script@v7
         with:
@@ -179,7 +182,7 @@ jobs:
             await github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              head: github.head_ref,
+              head: '${{ github.head_ref }}',
               base: 'main',
               title: '${{ format('Merge {0} branch', github.head_ref) }}'
             });
