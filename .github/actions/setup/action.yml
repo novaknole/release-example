@@ -10,7 +10,7 @@ runs:
       id: cache
       with:
         path: '**/node_modules'
-        key: npm-v3-${{ hashFiles('**/yarnlock.json') }}
+        key: npm-v3-${{ hashFiles('**/yarn.lock') }}
     - run: yarn install --frozen-lockfile
       shell: bash
       if: steps.cache.outputs.cache-hit != 'true'
