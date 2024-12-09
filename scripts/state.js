@@ -30,6 +30,7 @@ module.exports = async ({ github, context, core }) => {
   core.info(`State ${botRun}`);
   core.info(`State ${process.env.PULL_REQUEST_MERGED}`);
 
+  
   // Jobs to trigger
   setOutput("start", shouldRunStart());
   setOutput("changesets", shouldRunChangesets());
