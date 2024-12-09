@@ -132,7 +132,7 @@ jobs:
               owner: owner,
               repo: repo,
               workflow_id: 'release-cycle.yml',
-              ref: ${{ github.ref_name}}
+              ref: github.ref_name
             });
   
   publish:
