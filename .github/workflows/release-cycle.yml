@@ -129,6 +129,8 @@ jobs:
       )
     steps:
       - uses: actions/checkout@v3
+      - name: Debug GitHub event name
+        run: echo "${{ github.event_name }}"
       - uses: actions/setup-node@v3
         with:
           node-version: 20
