@@ -98,10 +98,11 @@ jobs:
         uses: changesets/action@v1
         with:
           version: yarn version
-          # When a PR is merged, changesets/action uses `ref_name` which is `<pr_number>/merge` 
-          # and not the source branch name. Such a PR causes new changeset's PR creation instead of 
-          # updating the current one. For push or workflow dispatch events, `base_ref` is undefined 
-          # and `ref_name` is the correct branch name changeset needs.
+          # When a PR is merged to `release-*`, changesets/action uses `ref_name` which 
+          # is `<pr_number>/merge` and not the source branch name. Such a PR causes 
+          # changeset's new PR creation instead of updating the current one. 
+          # For push or workflow dispatch events, `base_ref` is undefined 
+          # and `branch` results in `ref_name` which is where push/dispatch happened.
           branch: ${{ github.base_ref || github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

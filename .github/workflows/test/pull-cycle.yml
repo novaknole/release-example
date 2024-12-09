@@ -1,0 +1,11 @@
+name: testing
+on:
+  push:
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+permissions: {} #reset
+
+jobs:
+  test1: 
+    name: 'here'
+    run: echo 'test start'
