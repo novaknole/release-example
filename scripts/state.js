@@ -13,6 +13,8 @@ module.exports = async ({ github, context, core }) => {
     core.info(`State ${refName}`);
     core.info(`State ${eventName}`);
     core.info(`State ${botRun}`);
+    core.info(`State ${Object.keys(process.env)}`)
+    
     core.info(`State ${Object.keys(github)}`);
     core.info(`State ${Object.keys(context)}`);
     
