@@ -3,9 +3,6 @@
   "version": "1.6.0",
   "main": "index.js",
   "license": "MIT",
-  "scripts": {
-    "version": "scripts/release/version.sh"
-  },
   "publishConfig": {
     "access": "public"
   },
